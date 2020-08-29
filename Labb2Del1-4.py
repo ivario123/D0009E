@@ -4,17 +4,23 @@ def bounce(n):
     if(n==0): return
     bounce(n-1)
     print(n,)
+    
+    
 def tvarsumman(n):
     if n>10:
         return n//10+tvarsumman(n-(n//10)*10)
     else:
         return n
 def tvarsumman2(n):
+    s = str(n)
     sum = 0
-    for i in range(n//10+1,0,-1):
-        
+    for x in s:
+        sum = sum+int(x)
+    return sum
+       
 print("Tvarsumma 32 = {}".format(tvarsumman(32)))
+print("Tvarsumma2 32 = {}".format(tvarsumman2(32)))
 print("Bounce",)
-bounce(10)
+bounce(1)
 print("Bounce2",)
-bounce2(10)
+bounce2(1)
