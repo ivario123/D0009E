@@ -1,4 +1,8 @@
-bounce2 = lambda n: [print(*(range(n,0,-1)),sep="\n"),print(*(range(0,n+1)),sep="\n")]
+#Snyggare lösning om jag fick använda lambda
+#bounce2 = lambda n: [print(*(range(n,0,-1)),sep="\n"),print(*(range(0,n+1)),sep="\n")]
+def bounce2(n):
+    for i in range(n,-n-1,-1):
+        print(abs(i),)
 def bounce(n):
     print(n,)
     if(n==0): return
@@ -18,8 +22,8 @@ def tvarsumman2(n):
         sum = sum+int(x)
     return sum
        
-print("Tvarsumma 32 = {}".format(tvarsumman(32)))
-print("Tvarsumma2 32 = {}".format(tvarsumman2(32)))
+print("Tvarsumma(32) = {}".format(tvarsumman(32)))
+print("Tvarsumma2(32) = {}".format(tvarsumman2(32)))
 print("Bounce",)
 bounce(1)
 print("Bounce2",)

@@ -21,12 +21,15 @@ def recept(antal):
     print("Vatten : {}dl\n".format(faktor))
     
     #endregion
-#///////////////////////////////////////////////////////////////////////////////////////
-#--------Anänder lambda istället för vanliga funktioner tycker att det är snyggare-----
-#\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-tidblanda = lambda antal:10+antal
-tidgradda = lambda antal:30+3*antal  
-sockerkaka = lambda antal : [recept(antal),print("Tillagningstid : {}min".format(tidblanda(antal)+tidgradda(antal)))]
+#region småfunktionerna
+def tidblanda(antal):
+    return 10+antal
+def tidgradda(antal):
+    return 30+3*antal 
+def sockerkaka(antal):
+    recept(antal)
+    print("Tillagningstid : {}min".format(tidblanda(antal)+tidgradda(antal)))
+#endregion
 if __name__ == "__main__":
     sockerkaka(4)
     sockerkaka(7)
