@@ -5,7 +5,31 @@ Ord1 = [["Ord","Förklaring"]]
 Ord2 = {
     "Ord" : "Förklaring"
 }
-def add(ord,exp,metod):
+def Explain(ord,exp):
+    return "{} innebär {}".format(ord,exp)
+def Pop(ord,metod):
+    ord = ord.lower()
+    if(metod == 1):
+        try:
+            Exp.pop(Ord.index(ord))
+            Ord.pop(Ord.index(ord))
+            return "\"pop\""
+        except:
+            return "Ordet finns inte"
+    if metod == 2:
+        for el in Ord1:
+            if el[0] == ord :
+                Ord1.pop(Ord1.index(el))
+                return "\"pop\""
+        return "Ordet finns inte"
+    if metod == 3:
+        try:
+            Ord2.pop(ord)
+            return "\"pop\""
+        except:
+            return "Ordet finns inte"
+def Append(ord,exp,metod):
+    ord = ord.lower()
     if(metod == 1):
         Ord.append(ord)
         Exp.append(exp)
@@ -14,16 +38,17 @@ def add(ord,exp,metod):
     if metod == 3:
         Ord2[ord]=exp
 def lookup(ord,metod):
+    ord = ord.lower()
     if(metod == 1):
-        return Exp[Ord.index(ord)] if ord in Ord else "Finns inte i listan"
+        return Explain(ord,Exp[Ord.index(ord)]) if ord in Ord else "Finns inte i listan"
     if metod == 2:
         for el in Ord1:
             if el[0] == ord :
-                return el[1]
+                return Explain(ord,el[1])
         return "Finns inte i listan"
 
     if metod == 3:
-        return Ord2[ord] if ord in Ord2 else "Finns inte i listan"
+        return Explain(ord,Ord2[ord]) if ord in Ord2 else "Finns inte i listan"
     return "felaktig metod"
     
 def meny(metod):
@@ -33,7 +58,8 @@ def meny(metod):
     -------------------------------------------------------------------------
     1 : Lägg till nytt ord
     2 : Hitta ord
-    3 : Tillbaka till toppen
+    3 : Ta bort ord
+    4 : Tillbaka till toppen
     -------------------------------------------------------------------------
     """
     try:
@@ -42,10 +68,12 @@ def meny(metod):
         print("Du måste ange en siffra\n")
         meny()
     if(resp == 1):
-        add(input("Vilket ord vill du lägga till\n")
+        Append(input("Vilket ord vill du lägga till\n")
             ,input("Vad är förklaringen?\n"),metod)
     elif resp == 2:
         print(lookup(input("Vilket ord?\n"),metod))
+    elif resp == 3:
+        print(Pop(input("Vilket ord vill du ta bort?\n"),metod))
     else :
         return
     meny(metod)
