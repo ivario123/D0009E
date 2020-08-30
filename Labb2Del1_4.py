@@ -22,9 +22,9 @@ def tvarsumman2(n):
         sum = sum+int(x)
     return sum
        
-print("Tvarsumma(32) = {}".format(tvarsumman(32)))
-print("Tvarsumma2(32) = {}".format(tvarsumman2(32)))
-print("Bounce",)
-bounce(1)
-print("Bounce2",)
-bounce2(1)
+#print("Tvarsumma(32) = {}".format(tvarsumman(32)))
+#print("Tvarsumma2(32) = {}".format(tvarsumman2(32)))
+#print("Bounce",)
+#bounce(1)
+#print("Bounce2",)
+#bounce2(1)
