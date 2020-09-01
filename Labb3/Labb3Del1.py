@@ -1,10 +1,4 @@
-
-Ord = ["Ord"]
-Exp = ["Förklaring"]
-Ord1 = [["Ord","Förklaring"]]
-Ord2 = {
-    "Ord" : "Förklaring"
-}
+#En fin liten funktion som bara skriver ut förklaringen av ett ord
 def Explain(ord,exp):
     return "Förklaring av {} > {}".format(ord,exp)
 def Pop(ord,metod):
@@ -34,7 +28,7 @@ def Append(ord,exp,metod):
         Ord.append(ord)
         Exp.append(exp)
     if metod == 2:
-        Ord1.append([ord,exp])
+        Ord1.append((ord,exp))
     if metod == 3:
         Ord2[ord]=exp
 def lookup(ord,metod):
@@ -85,11 +79,26 @@ def pingInt(message):
     except:
         print("Du måste ange en siffra\n")
         pingInt(message)
-def init():
-    mode = pingInt("Vilken metod vill du använda?\nDu kan välja mellan 1,2,3\nVälj metod > ")
-    if(int(mode)>3):
-        return
-    meny(mode)
-    init()
+
 if __name__ == "__main__":
-    init()
+    startping = """
+    Vilken metod vill du använda?
+    -------------------------------------------------------------------------
+    1. två separata listor
+    2. lista av tupler
+    3. Dictionary
+    allt annat avslutar programmet
+    -------------------------------------------------------------------------
+    Välj metod >"""
+    
+    Ord = ["Ord"]
+    Exp = ["Förklaring"]
+    Ord1 = [("Ord","Förklaring")]
+    Ord2 = {
+        "Ord" : "Förklaring"
+    }
+    while 1:
+        mode = pingInt(startping)
+        if(int(mode)>3):
+            break
+        meny(mode)
