@@ -80,7 +80,7 @@ def alias(args,Phonebook):
 def pop(args,Phonebook):
     assert len(args)==1
     for el in Phonebook:
-        if el.Nick == args[0]:
+        if args[0] in el.Nick :
             Phonebook.pop(Phonebook.index(el))
             print("\"pop\"")
             return Phonebook
@@ -94,7 +94,7 @@ def change(args,Phonebook):
     assert len(args)==2
     for el in Phonebook:
         #kollar om det finns någon användare med det användarnamnet/smeknamnet
-        if el.Name == args[0] or el.Nick == args[0]:
+        if args[0] in el.Nick:
             #ändrar nummret för användaren
             Phonebook[Phonebook.index(el)].Num = args[1]
             #Skriver ut infon om användaren så att man kan se det nya numret
@@ -118,7 +118,8 @@ def save(arg="FileName",Phonebook=[]):
         #Går igenom listan
         for el in Phonebook:
             #Lägger till användarens data till strängen
-            s = "{}{};{};{};\n".format(s,el.Num,el.Nick,el.Name)
+            for nick in el.Nick:
+                s = "{}{};{};\n".format(s,el.Num,nick)
     #Skriver datan i s till filen f
     f.write(s)
     #Stänger filen f
@@ -142,7 +143,7 @@ def load(arg="Filename"):
             #delar upp raden i collumner
             cols = row.split(';')
             #lägger till en ny användare i listan
-            temp.append(user(cols[2],cols[1],cols[0])) 
+            temp.append(user(cols[1],cols[0])) 
     #Skriver ut datan i listan
     print(temp)
     #Stänger filen
