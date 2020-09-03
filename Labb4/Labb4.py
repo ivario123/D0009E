@@ -2,17 +2,11 @@
 
 #region användar klassen
 class user:
-    def __init__(self,name="Användarens namn",nick="Smeknamn",num="Telefonnummer"):
-        #Namnet på användaren
-        self.Name = name
-        #Smeknamnet på användaren
-        self.Nick = nick
-        #Användarens telefonnummer
+    def __init__(self,nick="Smeknamn",num="Telefonnummer"):
+        self.Nick = [nick]
         self.Num = num
-    #Så att jag slipper ha printen senare i koden
     def __repr__(self):
-        #Om man vill printa objektet så får man
-        return "{}'s elller om man vill {}'s nummer är : {}".format(self.Name,self.Nick,self.Num)
+        return "{}'s nummer är : {}".format(self.Nick[0],self.Num)
 #endregion
 
 
@@ -28,12 +22,16 @@ def add(args=[],Phonebook=[]):
     #Kollar så att det inte finns någon med det namnet
     for el in Phonebook:
         #Om någon har samma namn så bryts funktionen
-        if el.Name==args[0]:
+        if el.Nick==args[0]:
             #Skriver ut ett felmedelande
             print('Det finns redan en användare med det namnet\n')
             return Phonebook
+        if el.Num==args[1]:
+            #Skriver ut ett felmedelande
+            print('Det finns redan en användare med det nummret\n')
+            return Phonebook
     #Lägger till en ny användare i listan
-    Phonebook.append(user(args[0],args[0],args[1]))
+    Phonebook.append(user(args[0],args[1]))
     #ger tillbaka den modifierade listan
     return Phonebook
 
@@ -45,7 +43,7 @@ def lookup(args=[],Phonebook=[]):
     #går igenom listan med användare 
     for el in Phonebook:
         #kollar om namnet eller smeknamnet för användaren stämmer överens med argumententet
-        if el.Name == args[0] or el.Nick == args[0]:
+        if args[0] in el.Nick:
             #Skriver ut elementet med hjälp av __repr__ i klassen
             print(el)
             #Returnerar listan
@@ -60,12 +58,16 @@ def lookup(args=[],Phonebook=[]):
 def alias(args,Phonebook):
     #Verifigerar att antalent argument stämmer
     assert len(args)==2
+    for el in Phonebook:
+        if args[1] in el.Nick:
+            print("Det finns redan någon med det namnet",)
+            return Phonebook
     # Går igenom listan med användare
     for el in Phonebook:
         #om man hittar någon med samma namn
-        if el.Name == args[0]:
+        if args[0] in el.Nick:
             #ändrar man den användarens smeknamn
-            Phonebook[Phonebook.index(el)].Nick = args[1]
+            Phonebook[Phonebook.index(el)].Nick.append(args[1])
             #Skickar tillbaka den nya listan
             return Phonebook
     #om man inte hittar någon skrivs ett felmedelande
@@ -76,19 +78,12 @@ def alias(args,Phonebook):
 #------------------------------------------.....---------------------------------------
 #Funktionen som tar bort ett element ur listan
 def pop(args,Phonebook):
-    #Verifigerar att antalent argument stämmer
     assert len(args)==1
-    #går igenom listan
     for el in Phonebook:
-        #om man hittar något element med samma smeknamn eller namn som det angivna
-        if el.Name == args[0] or el.Nick == args[0]:
-            #tar bort det elementet
+        if el.Nick == args[0]:
             Phonebook.pop(Phonebook.index(el))
-            #printar ett lite roligt medelande, föreställ er ljudet
             print("\"pop\"")
-            #Returnerar listan
             return Phonebook
-    #om man inte hittar en användare med det namn/smeknamn printas ett medelande
     print( "Hittade inte den användaren",)
     #returnerar listan
     return Phonebook
@@ -96,9 +91,7 @@ def pop(args,Phonebook):
 #------------------------------------------.....---------------------------------------
 #Funktionen som ändrar telefonnummer för en användare
 def change(args,Phonebook):
-    #Verifigerar att antalent argument stämmer
     assert len(args)==2
-    #går igenom listan
     for el in Phonebook:
         #kollar om det finns någon användare med det användarnamnet/smeknamnet
         if el.Name == args[0] or el.Nick == args[0]:
@@ -165,9 +158,7 @@ def load(arg="Filename"):
 def TryTask(task,inp,expectedargs):
     try:
         #kör uppgiften med inputen
-        p = task(inp[0],inp[1])
-        #om det funkade returnerar vi returnen
-        return p
+        return task(inp[0],inp[1])
     except:
         #Om det inte funkade så skriver vi ett fint litet felmedelande
         print("Du måste ange {} argment separerade med mellanrum".format(expectedargs),)
@@ -198,27 +189,18 @@ if __name__ == "__main__":
         elif arg[0]=="save":
             #om man inte angav två argument så skriver man bara datan till save
             if(len(arg)==2):
-                #Skriver data till det valda filnamnet
                 Phonebook = save(arg[1],Phonebook)
             else:
-                #Skriver datan till save
                 Phonebook = save("save",Phonebook)
         elif arg[0]=="load":
-            #om man inte angav två argument så läser man data från save
             if(len(arg)==2):
-                #Läser data från det valda filnamnet
                 Phonebook = load(arg[1])
             else:
-                #Läser data från save
                 Phonebook = load("save")
-        #Om man säger quit så avbryts programmet
         elif arg[0]=="quit":
             break
-        #Tycker att pop är ett bättre argument så accepterar det också
         elif arg[0]=="remove" or arg[0]=="pop":
-            #tar bort det valda elementet
             Phonebook = TryTask(pop,[arg[1:2],Phonebook],1)
-        #skrev man fel så skriver den att man skrev fel
         else:
             print("Invalid request\n")
 #endregion
