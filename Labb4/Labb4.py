@@ -3,8 +3,11 @@
 #region användar klassen
 class user:
     def __init__(self,nick="Smeknamn",num="Telefonnummer"):
+        #skapar en lista med smeknamn, trots att det inte stod i formuleringen ska man ha 
+        #möjligheten att ha mer än ett smeknamn
         self.Nick = [nick]
         self.Num = num
+    #så att man kan printa ut en förklaring utan att skriva en ny formaterings metod
     def __repr__(self):
         return "{}'s nummer är : {}".format(self.Nick[0],self.Num)
 #endregion
@@ -40,7 +43,6 @@ def add(args=[],Phonebook=[]):
 def lookup(args=[],Phonebook=[]):
     #Verifigerar att antalent argument stämmer
     assert len(args)==1
-    #går igenom listan med användare 
     for el in Phonebook:
         #kollar om namnet eller smeknamnet för användaren stämmer överens med argumententet
         if args[0] in el.Nick:
@@ -78,7 +80,9 @@ def alias(args,Phonebook):
 #------------------------------------------.....---------------------------------------
 #Funktionen som tar bort ett element ur listan
 def pop(args,Phonebook):
+    #Verifigerar att antalent argument stämmer
     assert len(args)==1
+    #kollar om det finns någon användare med det smeknamnet i listan
     for el in Phonebook:
         if args[0] in el.Nick :
             Phonebook.pop(Phonebook.index(el))
@@ -105,6 +109,7 @@ def change(args,Phonebook):
     print( "Hittade inte den användaren",)
     #Returnerar listan
     return Phonebook
+
 #------------------------------------------.....---------------------------------------
 #Funktionen som sparar listan till en fil
 #Arg är filnamnet och Phonebook är listan med användare
@@ -129,7 +134,7 @@ def save(arg="FileName",Phonebook=[]):
     
 #------------------------------------------.....---------------------------------------
 #Funktionen som laddar data från en fil
-def load(arg="Filename"):
+def load(arg="FileName"):
     #Öppnar filen med filnamn arg och förlängdningen .Telefonbok
     f = open("{}.Telfeonbok".format(arg),"r")
     #Raderna i texten separeras ut till en lista
@@ -162,6 +167,7 @@ def TryTask(task,inp,expectedargs):
         return task(inp[0],inp[1])
     except:
         #Om det inte funkade så skriver vi ett fint litet felmedelande
+        #Om vi antar att alla funktioner funkar som de ska ligger felet i antalet argument
         print("Du måste ange {} argment separerade med mellanrum".format(expectedargs),)
         #returnerar det som borde vara telefonboken
         return inp[1]

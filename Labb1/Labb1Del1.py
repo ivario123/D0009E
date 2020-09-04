@@ -2,6 +2,8 @@ def recept(antal):
     print("\nRecept för : {} personer : \n".format(antal))
     import math
     faktor = antal/4
+    #Hade kunnat använda något i stil med faktorrundad = antal//4 men det rundar alltid ner och kräver en uräkning till
+    #så valde att bara runda den när jag behöver
     #///////////////////////////////////////////////////////////////////////////////////////
     #----------Eftersom att det går åt en form till 4 pers går det två till 8 osv----------
     #\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
